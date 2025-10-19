@@ -3,16 +3,14 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>ElitePips — Free Forex Signals</title>
-<meta name="description" content="Answer a quick question to access our free Forex trading resources and signals. Educational content only."/>
+<title>ElitePips</title>
+<meta name="description" content="Answer one quick question to join free Forex signals on Telegram. Limited access available!"/>
 <meta name="theme-color" content="#001022">
 
-<!-- Meta Pixel (kept) -->
+<!-- Meta Pixel -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
 n.queue=[];t=b.createElement(e);t.async=!0;
@@ -29,7 +27,7 @@ fbq('track', 'PageView');
   --accent2:#ff4d00;
   --text:#e6eefb;
   --muted:#bfcfe6;
-  --card-bg:rgba(6,8,15,0.92);
+  --card-bg:rgba(6,8,15,0.9);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -49,7 +47,7 @@ body{
 .progressWrap{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .progress{flex:1;height:9px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
 .progress>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent1),var(--accent2));width:0;transition:width .45s ease}
-.progressNum{min-width:44px;text-align:right;color:var();font-weight:700;font-size:13px}
+.progressNum{min-width:44px;text-align:right;color:var(--muted);font-weight:700;font-size:13px}
 .question{animation:fadeIn .32s ease;text-align:center;margin-bottom:14px}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .hype{
@@ -72,7 +70,7 @@ body{
 .option.selected{background:linear-gradient(90deg,rgba(255,120,0,0.18),rgba(255,60,0,0.12));color:#fff;transform:translateY(-8px)}
 .thankyou{text-align:center;padding:6px}
 .thank-h{font-size:20px;margin:6px 0;font-weight:900}
-.thank-sub{color:var();margin-bottom:12px}
+.thank-sub{color:var(--muted);margin-bottom:12px}
 .join-btn{
   display:inline-block;position:relative;overflow:hidden;
   background:linear-gradient(90deg,#ff7a00,#ff4d00);
@@ -82,10 +80,9 @@ body{
 .join-btn::after{content:'';position:absolute;left:-50%;top:0;width:40%;height:100%;background:linear-gradient(120deg,rgba(255,255,255,0)0%,rgba(255,255,255,0.14)50%,rgba(255,255,255,0)100%);transform:skewX(-20deg);filter:blur(6px);animation:shine 3.4s linear infinite}
 @keyframes shine{0%{left:-60%}100%{left:120%}}
 .fomo{background:linear-gradient(90deg,#ffe6d6,#ffd0b3);color:#2b0a00;padding:8px 12px;border-radius:10px;font-weight:800;display:inline-block;margin:10px 0;font-size:13px}
-.small{font-size:13px;color:var();margin-top:8px}
+.small{font-size:13px;color:var(--muted);margin-top:8px}
 .row{display:flex;gap:10px;justify-content:center;margin-top:12px}
 .btn-ghost{padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text);font-weight:700;text-decoration:none;cursor:pointer}
-.note{font-size:12px;color:var(--muted);margin-top:10px}
 @media (max-width:520px){.container{padding:14px}.hype{font-size:18px}}
 </style>
 </head>
@@ -96,34 +93,33 @@ body{
     <div class="progress"><i id="bar"></i></div>
     <div class="progressNum" id="progNum">0%</div>
   </div>
-
-  <div id="q-box">
-    <!-- Single question will be rendered here -->
-  </div>
+  <div id="q-box"></div>
 </main>
 
 <script>
-/* ---------- CONFIG ---------- */
-const telegramLink = "https://telegram.me/+ZVpxPGfP6LFiZDFl"; // updated link
-/* ---------- STATE ---------- */
-let answered = false;
-const qBox = document.getElementById('q-box'), bar = document.getElementById('bar'), progNum = document.getElementById('progNum');
+/* Deep-link setup */
+const telegramAppLink = "tg://join?invite=ZrjDtoQ9Tgw3ZWQ1";
+const telegramWebLink = "https://t.me/+ZrjDtoQ9Tgw3ZWQ1";
 
-/* ---------- RENDER ---------- */
+let answered=false;
+const qBox=document.getElementById('q-box'),
+      bar=document.getElementById('bar'),
+      progNum=document.getElementById('progNum');
+
 function renderSingleQuestion(){
   qBox.innerHTML = `
     <div class="question">
-      <div class="hype pulse">🔥 Live Forex set-ups — join our learning community</div>
-      <div style="height:8px"></div>
+      <div class="hype pulse">🔥 LIVE Forex signals — traders are booking entries now!</div>
+      <div style="height:10px"></div>
       <div class="options">
-        <div class="option" data-val="yes">Yes — I want access to signals & learning</div>
-        <div class="option" data-val="no">Not right now — show me resources</div>
+        <div class="option" data-val="yes">Yes — show me live setups</div>
+        <div class="option" data-val="no">No — not right now</div>
       </div>
-      <div class="small">Takes one tap. We share educational trade ideas only — not financial advice.</div>
+      <div class="small">Tap one — it only takes a second. Limited access for serious traders only.</div>
     </div>
   `;
   updateProgress(0);
-  document.querySelectorAll('.option').forEach(o=>o.addEventListener('click', onChooseSingle));
+  document.querySelectorAll('.option').forEach(o=>o.addEventListener('click',onChooseSingle));
 }
 
 function updateProgress(pct){
@@ -131,76 +127,69 @@ function updateProgress(pct){
   progNum.textContent = pct + "%";
 }
 
-/* ---------- PIXEL TRACKING WRAPPER ---------- */
-function sendSubscribe(eventName, payload){
-  try{ fbq('track', eventName, payload || {}); }catch(e){}
-}
-
-/* ---------- BASIC CLIENT BOT CHECK ---------- */
 function onChooseSingle(ev){
   if(answered) return;
-  answered = true;
+  answered=true;
   const el = ev.currentTarget;
   const val = el.getAttribute('data-val');
   document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
   el.classList.add('selected');
-  setTimeout(()=>{ updateProgress(66); showConfirmFor(val); },220);
+  setTimeout(()=>{ updateProgress(100); showResultFor(val); },220);
 }
 
-function showConfirmFor(val){
+/* Deep redirect logic */
+function deepRedirect(){
+  const now = Date.now();
+  window.location.href = telegramAppLink;
+  setTimeout(()=>{ 
+    if(Date.now() - now < 2000){
+      window.location.href = telegramWebLink;
+    }
+  },900);
+}
+
+/* Thank-you page with strong FOMO + forex theme text */
+function showResultFor(val){
   if(val === 'yes'){
     qBox.innerHTML = `
       <div class="thankyou">
-        <div class="hype small">You're almost there — quick confirm</div>
-        <div class="thank-sub">We keep the group focused on learning and real setups. Educational content only.</div>
-        <div><span class="fomo">⚡ Limited interactive spots — priority given to active learners</span></div>
-        <div class="row" style="margin-top:14px">
-          <button id="proceedBtn" class="join-btn">Proceed to Telegram →</button>
+        <div class="hype small">You're seconds away from real market updates 🚀</div>
+        <div class="thank-sub">Our experts share live Forex setups, entry zones & community discussions every day.</div>
+        <div><span class="fomo">⚡ Don’t miss the next breakout — join the signal group now!</span></div>
+        <div class="fomo">📊 Real-time trade setups, risk-managed analysis & daily learning sessions.</div>
+        <div class="fomo">⏰ New signal dropping soon — tap below before access closes.</div>
+        <div class="row" style="margin-top:16px">
+          <a id="joinBtn" class="join-btn" href="#" target="_blank" rel="noopener">Join Free Signals →</a>
         </div>
-        <div class="note">By proceeding you confirm you want educational trade setups. Not financial advice.</div>
+        <div class="count" style="margin-top:14px">Auto-redirecting in <span id="count">7</span>s...</div>
       </div>
     `;
-    updateProgress(85);
-    sendSubscribe('Subscribe', {interested: 'yes', step: 'confirm_shown'});
-    setTimeout(()=>{ const pb = document.getElementById('proceedBtn'); if(pb) pb.addEventListener('click', onProceedClickYes); },80);
+    let t=7; const count=document.getElementById('count');
+    const timer=setInterval(()=>{
+      t--; if(count) count.textContent = t;
+      if(t<=0){ clearInterval(timer); deepRedirect(); }
+    },1000);
+    setTimeout(()=>{ document.getElementById('joinBtn').addEventListener('click', deepRedirect); },50);
   } else {
     qBox.innerHTML = `
       <div class="thankyou">
-        <div class="hype small">No problem — check our free resources</div>
-        <div class="thank-sub">We share guides, sample setups and educational posts in the resource page.</div>
+        <div class="hype small">No worries — take your time 🙂</div>
+        <div class="thank-sub">You can always explore our free community & educational content later.</div>
         <div class="row">
           <button id="backBtn" class="btn-ghost">Back</button>
-          <a id="learnBtn" class="join-btn" href="\${telegramLink}" target="_blank" rel="noopener">See Resources →</a>
+          <a id="learnBtn" class="join-btn" href="#" target="_blank" rel="noopener">Explore Community →</a>
         </div>
-        <div class="note">You can always come back and request signals later.</div>
+        <div class="small">Stay updated — more trading insights await you.</div>
       </div>
     `;
-    updateProgress(100);
-    sendSubscribe('Subscribe', {interested: 'no'});
-    setTimeout(()=>{ const bb=document.getElementById('backBtn'); if(bb) bb.addEventListener('click', ()=>{ answered=false; renderSingleQuestion(); }); },50);
-    setTimeout(()=>{ const lb=document.getElementById('learnBtn'); if(lb) lb.addEventListener('click', ()=>sendSubscribe('LearnClick',{interested:'no'})); },50);
+    setTimeout(()=>{
+      document.getElementById('backBtn').addEventListener('click', ()=>{ answered=false; renderSingleQuestion(); });
+      document.getElementById('learnBtn').addEventListener('click', deepRedirect);
+    },50);
   }
 }
 
-function onProceedClickYes(){
-  sendSubscribe('ProceedClick', {interested:'yes'});
-  const redirectUrl = window.location.origin + '/redirect.html?to=telegram';
-  const win = window.open(redirectUrl, '_blank', 'noopener');
-  if(!win){ window.location.href = redirectUrl; }
-  qBox.innerHTML = `
-    <div class="thankyou">
-      <div class="hype small">Done — check your Telegram</div>
-      <div class="thank-sub">If Telegram didn't open, tap the button again.</div>
-      <div class="row" style="margin-top:12px">
-        <a class="join-btn" href="/redirect.html?to=telegram" target="_blank" rel="noopener">Open Telegram →</a>
-      </div>
-      <div class="note">Educational content only. No guarantees of profit.</div>
-    </div>
-  `;
-  updateProgress(100);
-}
-
-/* ---------- INITIAL ---------- */
+// initial render
 renderSingleQuestion();
 </script>
 </body>
