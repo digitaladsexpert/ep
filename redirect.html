@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Redirecting…</title>
+<meta name="robots" content="noindex,nofollow"/>
+<style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;padding:24px;background:#001022;color:#e6eefb;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
+  .card{max-width:540px;background:rgba(6,8,15,0.94);padding:20px;border-radius:12px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
+  .btn{display:inline-block;margin-top:18px;padding:10px 14px;border-radius:10px;background:#ff7a00;color:#fff;text-decoration:none;font-weight:700}
+  .small{color:#bfcfe6;margin-top:8px;font-size:13px}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div style="font-weight:900;font-size:18px">Preparing your link…</div>
+    <div class="small">This page logs clicks to help prevent fake/click-farm traffic. You'll be redirected shortly.</div>
+    <a id="direct" class="btn" href="#">Open Telegram</a>
+    <div class="small" style="margin-top:12px">If you are not redirected, tap the button above.</div>
+  </div>
+
+<script>
+(function(){
+  const map = { telegram: "https://telegram.me/+ZVpxPGfP6LFiZDFl" };
+  function logClick(params){
+    try{
+      const url = '/.netlify/functions/logClick';
+      const payload = JSON.stringify({ts:Date.now(), params:params, ua:navigator.userAgent});
+      if(navigator.sendBeacon){
+        navigator.sendBeacon(url, payload);
+      }else{
+        fetch(url, {method:'POST',headers:{'Content-Type':'application/json'},body:payload}).catch(()=>{});
+      }
+    }catch(e){}
+  }
+  const qs = new URLSearchParams(location.search);
+  const to = qs.get('to') || 'telegram';
+  const dest = map[to] || map['telegram'];
+  const direct = document.getElementById('direct');
+  direct.setAttribute('href', dest);
+
+  logClick({to:to, ref:document.referrer});
+  setTimeout(()=>{ window.location.replace(dest); }, 1200);
+})();
+</script>
+</body>
+</html>
