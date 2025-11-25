@@ -7,23 +7,23 @@
 <meta name="description" content="Answer a quick question to access our free Forex trading resources and signals. Educational content only."/>
 <meta name="theme-color" content="#001022">
 
-<!-- Meta Pixel Code -->
+<!-- ❤️ Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+if(!f._fbq)n._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
 n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1510818133481870');
+fbq('init', '1871828863411179');
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1510818133481870&ev=PageView&noscript=1"
+src="https://www.facebook.com/tr?id=1871828863411179&ev=PageView&noscript=1"
 /></noscript>
-<!-- End Meta Pixel Code -->
+<!-- End Meta Pixel -->
 
 <style>
 :root{
@@ -81,7 +81,9 @@ body{
   color:#fff;padding:12px 18px;border-radius:12px;font-weight:900;text-decoration:none;
   box-shadow:0 14px 40px rgba(255,90,0,0.18);
 }
-.join-btn::after{content:'';position:absolute;left:-50%;top:0;width:40%;height:100%;background:linear-gradient(120deg,rgba(255,255,255,0)0%,rgba(255,255,255,0.14)50%,rgba(255,255,255,0)100%);transform:skewX(-20deg);filter:blur(6px);animation:shine 3.4s linear infinite}
+.join-btn::after{content:'';position:absolute;left:-50%;top:0;width:40%;height:100%;
+background:linear-gradient(120deg,rgba(255,255,255,0)0%,rgba(255,255,255,0.14)50%,rgba(255,255,255,0)100%);
+transform:skewX(-20deg);filter:blur(6px);animation:shine 3.4s linear infinite}
 @keyframes shine{0%{left:-60%}100%{left:120%}}
 .fomo{background:linear-gradient(90deg,#ffe6d6,#ffd0b3);color:#2b0a00;padding:8px 12px;border-radius:10px;font-weight:800;display:inline-block;margin:10px 0;font-size:13px}
 .small{font-size:13px;color:var();margin-top:8px}
@@ -99,14 +101,12 @@ body{
     <div class="progressNum" id="progNum">0%</div>
   </div>
 
-  <div id="q-box">
-    <!-- Single question will be rendered here -->
-  </div>
+  <div id="q-box"></div>
 </main>
 
 <script>
 /* ---------- CONFIG ---------- */
-const telegramLink = "https://t.me/+8_sPcNT8ZHFlZGVl"; // NEW UPDATED LINK
+const telegramLink = "https://telegram.me/+8_sPcNT8ZHFlZGVl";
 
 /* ---------- STATE ---------- */
 let answered = false;
@@ -134,21 +134,21 @@ function updateProgress(pct){
   progNum.textContent = pct + "%";
 }
 
-/* ---------- PIXEL TRACKING WRAPPER ---------- */
-function track(eventName, payload){
-  try{ fbq('track', eventName, payload || {});}catch(e){}
-}
-
 /* ---------- QUESTION LOGIC ---------- */
 function onChooseSingle(ev){
   if(answered) return;
   answered = true;
   const el = ev.currentTarget;
   const val = el.getAttribute('data-val');
+
+  // 📌 Pixel on Yes/No
+  try {
+    if(val === 'yes') fbq('trackCustom', 'QuizYes');
+    else fbq('trackCustom', 'QuizNo');
+  } catch(e){}
+
   document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
   el.classList.add('selected');
-
-  track('OptionClick', {choice: val}); /* <-- Pixel */
 
   setTimeout(()=>{ updateProgress(66); showConfirmFor(val); },220);
 }
@@ -168,8 +168,6 @@ function showConfirmFor(val){
     `;
     updateProgress(85);
 
-    track('SubscribeIntent', {interested:'yes'}); /* <-- Pixel */
-
     setTimeout(()=>{
       const pb = document.getElementById('proceedBtn');
       if(pb) pb.addEventListener('click', onProceedClickYes);
@@ -188,8 +186,6 @@ function showConfirmFor(val){
     `;
     updateProgress(100);
 
-    track('SubscribeIntent', {interested:'no'}); /* <-- Pixel */
-
     setTimeout(()=>{
       const bb=document.getElementById('backBtn');
       if(bb) bb.addEventListener('click', ()=>{
@@ -197,19 +193,12 @@ function showConfirmFor(val){
         renderSingleQuestion();
       });
     },50);
-
-    setTimeout(()=>{
-      const lb=document.getElementById('learnBtn');
-      if(lb) lb.addEventListener('click', ()=>{
-        track('ResourceClick',{interested:'no'});
-      });
-    },50);
   }
 }
 
-/* ---------- REDIRECT + PIXEL ---------- */
+/* ---------- PROCEED + PIXEL Subscribe ---------- */
 function onProceedClickYes(){
-  track('ProceedClick', {interested:'yes'}); /* <-- Pixel */
+  try { fbq('track', 'Subscribe'); } catch(e){}
 
   const redirectUrl = window.location.origin + '/redirect.html?to=telegram';
   const win = window.open(redirectUrl, '_blank', 'noopener');
